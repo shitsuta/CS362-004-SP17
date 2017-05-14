@@ -242,29 +242,33 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
   //check if player has enough actions
   if ( state->numActions < 1 )
     {
-      return -1;
+      return -2;
     }
   
+  // printf("handPos at playCard is %d\n", handPos);
+  // printf("catd at playCard is %d\n", state->hand[0][0]);
   //get card played
   card = handCard(handPos, state);
+  // card = 7;
   
+  // printf("handCard at playCard is %d\n", card);
   //check if selected card is an action
   if ( card < adventurer || card > treasure_map )
     {
-      return -1;
+      return -3;
     }
-  
-  //play card
+
+  // //play card
   if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
     {
-      return -1;
+      return -4;
     }
   
-  //reduce number of actions
-  state->numActions--;
+  // // //reduce number of actions
+  // state->numActions--;
 
-  //update coins (Treasure cards may be added with card draws)
-  updateCoins(state->whoseTurn, state, coin_bonus);
+  // //update coins (Treasure cards may be added with card draws)
+  // updateCoins(state->whoseTurn, state, coin_bonus);
   
   return 0;
 }
@@ -314,7 +318,12 @@ int numHandCards(struct gameState *state) {
 
 int handCard(int handPos, struct gameState *state) {
   int currentPlayer = whoseTurn(state);
+  // int currentPlayer = 0;
+  // printf("handPos at handCard is %d\n", handPos);
+  // printf("currentPlayer at handCard is %d\n", currentPlayer);
+  // printf("state->hand[currentPlayer][handPos] at handCard() %d\n", state->hand[currentPlayer][handPos]);
   return state->hand[currentPlayer][handPos];
+  // return 0;
 }
 
 int supplyCount(int card, struct gameState *state) {
@@ -751,12 +760,15 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer:
+      // printf("in adventurer\n");
       return adventurer_effet(drawntreasure, state, currentPlayer,cardDrawn , temphand, z );
- //      while(drawntreasure<2){
+  //     while(drawntreasure<2){
   // if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
   //   shuffle(currentPlayer, state);
   // }
   // drawCard(currentPlayer, state);
+  // // printf("state->hand[currentPlayer][state->handCount[currentPlayer]-1] at playCard is %d\n",state->hand[currentPlayer][state->handCount[currentPlayer]-2]);
+  //  drawntreasure++;
   // cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
   // if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
   //   drawntreasure++;
@@ -765,12 +777,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   //   state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
   //   z++;
   // }
- //      }
- //      while(z-1>=0){
+  //     }
+  //     while(z-1>=0){
   // state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
   // z=z-1;
- //      }
- //      return 0;
+      // }
+      // return 0;
       
     case council_room:
       return council_room_effect(currentPlayer,state,handPos);

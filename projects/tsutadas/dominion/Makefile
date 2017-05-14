@@ -15,6 +15,9 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
 
+betterTestDrawCard: betterTestDrawCard.c dominion.o rngs.o
+	gcc -o betterTestDrawCard -g  betterTestDrawCard.c dominion.o rngs.o $(CFLAGS)
+
 testBuyCard: testDrawCard.c dominion.o rngs.o
 	gcc -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
@@ -52,6 +55,42 @@ cardtest3: cardtest3.c dominion.o rngs.o
 
 cardtest4: cardtest4.c dominion.o rngs.o
 	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o $(CFLAGS)
+
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard1: randomtestcard1.c dominion.o rngs.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard1.out: randomtestcard1.c dominion.o rngs.o
+	echo "Rssult for runninng randomtestcard1:" >> randomtestcard1.out
+	
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard1 >> randomtestcard1.out
+	# ./randomtestadventurer
+	gcov dominion.c -b >> randomtestcard1.out
+	# ./randomtestadventurer
+
+randomtestcard2: randomtestcard2.c dominion.o rngs.o
+	gcc -o randomtestcard2-g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard2.out: randomtestcard2.c dominion.o rngs.o
+	echo "Rssult for runninng randomtestcard2:" >> randomtestcard2.out
+	
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard2 >> randomtestcard2.out
+	# ./randomtestadventurer
+	gcov dominion.c -b >> randomtestcard2.out
+	# ./randomtestadventurer
+
+randomtestadventurer.out: randomtestadventurer.c dominion.o rngs.o
+	echo "Rssult for runninng randomtestadventurer:" >> randomtestadventurer.out
+	
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+	./randomtestadventurer >> randomtestadventurer.out
+	# ./randomtestadventurer
+	gcov dominion.c -b >> randomtestadventurer.out
+	# ./randomtestadventurer
 
 
 unittestresults.out: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c  dominion.o rngs.o
@@ -102,7 +141,8 @@ unittestresults.out: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
-all: playdom player testDrawCard testBuyCard badTestDrawCard unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out
+all: playdom player betterTestDrawCard testDrawCard testBuyCard badTestDrawCard unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestadventurer.out randomtestcard1.out randomtestcard2.out
+# all: playdom player betterTestDrawCard testDrawCard testBuyCard badTestDrawCard randomtestadventurer.out
 
 clean:
-	rm -rf *.dSYM *.o playdom.exe playdom test.exe test player player.exe testInit testDrawCard badTestDrawCard testInit.exe *.gcov *.gcda *.gcno *.so unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out
+	rm -rf *.dSYM *.o playdom.exe playdom test.exe test player player.exe testInit testDrawCard badTestDrawCard testInit.exe *.gcov *.gcda *.gcno *.so unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestadventurer randomtestadventurer.out betterTestDrawCard randomtestcard1 randomtestcard1.out randomtestcard2 randomtestcard2.out
