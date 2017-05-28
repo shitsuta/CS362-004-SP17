@@ -1,0 +1,44 @@
+Shinji Tsutada
+CS 362 -- Assignment5 ---- 
+
+
+Tested Card: getCost(int cardNumber)
+Result: No Bugs
+
+
+Tested Card: isGameOver(struct gameState *state)
+Result: No Bugs
+
+
+Tested Card: supplyCount(int card, struct gameState *state)
+Result: No Bugs
+
+
+Tested Card: numHandCards(struct gameState *state)
+Result: No Bugs
+
+
+Tested Card: smithy
+Result: Bug Found
+Detail: smithy does not draw the correct number of cards. 
+This is due to modification in for loop. 
+It is supposed to draw three cards but for loop is set as for (i = 0; i <= 3; i++) that let player draw four cards. 
+It should be for (i = 0; i < 3; i++).
+I found it with gdb executed codes line by line. I occasionally checked variables so to see if there is anything wrong.
+
+
+Tested Card: adventurer
+Result: Bug Found
+Detail: adventurer draws incorrect number of treasure cards. It let player draw three three treasure cards instead of two. 
+This is caused by modification in while loop. In newAdventurer, made by my teammate, while loop is set to while (drawntreasure<=2). This should be while (drawntreasure<2) as in original version of dominion.
+I found it with gdb executed codes line by line. I occasionally checked variables so to see if there is anything wrong.
+
+Tested Card: council_room
+Result: Bug Found
+Detail: concil_room does not draw correct amount of cards for player who played the card. 
+This is caused by modification inside for loop. In original version, it has if (i != currentPlayer) around drawCard that is used to stop currentPlayer draws one more card. 
+I found it with gdb executed codes line by line. I occasionally checked variables so to see if there is anything wrong.
+ 
+
+Tested Card: village
+Result: No Bugs
